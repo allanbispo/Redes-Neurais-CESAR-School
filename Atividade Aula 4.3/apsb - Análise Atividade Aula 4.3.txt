@@ -1,1 +1,14 @@
+ATIVIDADE:
+Acesse a página http://playground.tensorflow.org e utilizando apenas 2 entradas (x1 e x2), resolva para o dataset "Spiral".
 
+ANÁLISES:
+De pronto percebe-se a complexidade desse dataset. O Spiral, pelo shape apresentado, tende a sugerir que a função ativação mais apropriada seria 'tanh', todavia, devido ao tamanho da rede resposta, e a 'tanh' ser mais aplicável em redes menores, o resultado mais otimizado se deu com o emprego de 'ReLU', fazendo jus à sua melhor eficiência em camadas ocultas de redes neurais.
+
+Como não podia-se alterar o número de entradas, ficando fixo em (x1 e x2), os testes sem camada oculta, ou com somente 1 camada oculta, falharam em zeragem das perdas. Falharam também o emprego de muitos neurônios nessa pequena quantidade de camadas. Conforme mencionado acima, o dataset tem uma complexidade elevada, requerendo muitos nós algorítimicos na rede resposta.
+
+Os testes com vários learning rate distintos indicaram que os valores mais comuns já seriam suficientes. Com lr = 0.003 ou 0.001 teve-se a impressão do modelo ficar preso em algum mínimo local, sem falar da lentidão. Verificou-se, na tomada de decisão final que, tanto um lr = 0.01 quanto lr = 0.03, seriam suficientes para uma boa convergência, optando-se por este último.
+
+Ficou também evidenciado nos testes a necessidade de regularização. As curvas de perdas, devido ao complexo dataset, ficavam muito instáveis, então o emprego dos métodos de regularização L1/L2 foi avaliado. L2 não se mostrou eficaz, talvez pelo fato de sua característica de tentar manter todos os pesos, eliminando somente os maiores. Com a função ativação ReLU a regularização L1 deu um bom match pois, como a rede resposta tem muitos nós, e vários deles não tinham muita relevância, os resultados foram melhores.
+
+CONCLUSÃO:
+Ao final, após vários testes, chegou-se a configuração neural de 4 camadas ocultas com 7 nós em cada. Entretanto, imporante mencionar, que mesmo com todo esse arranjo de neurônios com ReLU e L1, com um learning rate de 0.03, somente com mais de 2000 rodadas de treinamento é que as perdas se tornaram aceitáveis. Na conclusão, após 2500 épocas, chegou-se a um training loss de zero, com um overshooting marginal, pois o test loss foi de 0.008.
